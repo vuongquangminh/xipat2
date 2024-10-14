@@ -152,8 +152,8 @@ const Product = () => {
             ]}
             headings={[
               "Product",
-              "Title",
-              "Rules Count",
+              "Title Product",
+              "Rule(s)",
               "Last Update",
               "Status",
               "Actions",

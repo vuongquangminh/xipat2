@@ -202,7 +202,6 @@ const EndDate = ({ height = "auto", width = "auto", end_date }) => {
   return (
     <div
       style={{
-        // background: "var(--p-color-text-info)",
         height: height,
         width: width,
       }}
@@ -210,7 +209,6 @@ const EndDate = ({ height = "auto", width = "auto", end_date }) => {
       <TextField
         label="End Date"
         value={end_date}
-        // onChange={(value) => setStartDate(value)} // Update value on change
         autoComplete="off"
         type="text"
       />
@@ -281,7 +279,7 @@ const Discount = ({ height = "auto", width = "auto", value, onChange }) => {
       }}
     >
       <TextField
-        label="Discount"
+        label="Discount per item (%)"
         value={value}
         onChange={onChange}
         autoComplete="off"

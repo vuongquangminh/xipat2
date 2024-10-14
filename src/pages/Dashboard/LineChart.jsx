@@ -90,10 +90,10 @@ const hardcodedData = [
 ];
 
 const LineChart = () => {
-  const [{ month, year }, setDate] = useState({ month: 8, year: 2024 });
+  const [{ month, year }, setDate] = useState({ month: 9, year: 2024 });
   const [selectedDates, setSelectedDates] = useState({
-    start: new Date(hardcodedData[26].date),
-    end: new Date(hardcodedData[32].date),
+    start: new Date(hardcodedData[54].date),
+    end: new Date(hardcodedData[60].date),
   });
 
   const handleMonthChange = useCallback(
