@@ -1,13 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { lazy } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals.js";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import "@shopify/polaris/build/esm/styles.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const Main = lazy(() => import("./pages/Main.jsx"));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+  },
+]);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <React.Suspense fallback={<div>Đang tải...</div>}>
+      <RouterProvider router={router} />
+    </React.Suspense>
   </React.StrictMode>
 );
 
