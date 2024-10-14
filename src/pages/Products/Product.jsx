@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import request from "../../utils/request";
 import { DataTable, Button, TextField, Icon } from "@shopify/polaris";
 import "../../../src/index.css";
@@ -48,7 +48,6 @@ const Product = () => {
     });
     setRowTable(cusNewRow);
   };
-  console.log({ rowTable });
 
   const rowsPerPage = 5; // Mỗi trang hiển thị 5 dòng
 

@@ -222,7 +222,6 @@ const TitleCampaign = ({ height = "auto", width = "auto", title_campaign }) => {
   return (
     <div
       style={{
-        // background: "var(--p-color-text-info)",
         height: height,
         width: width,
       }}
@@ -230,8 +229,6 @@ const TitleCampaign = ({ height = "auto", width = "auto", title_campaign }) => {
       <TextField
         label="Title Campaign"
         value={title_campaign}
-        // onChange={(value) => setStartDate(value)} // Update value on change
-        // onChange={(value) => console.log("value: ", value)} // Update value on change
         autoComplete="off"
         type="text"
       />
@@ -243,7 +240,6 @@ const BuyFrom = ({ height = "auto", width = "auto", value, onChange }) => {
   return (
     <div
       style={{
-        // background: "var(--p-color-text-info)",
         height: height,
         width: width,
       }}
@@ -262,7 +258,6 @@ const BuyTo = ({ height = "auto", width = "auto", value, onChange }) => {
   return (
     <div
       style={{
-        // background: "var(--p-color-text-info)",
         height: height,
         width: width,
       }}
@@ -281,7 +276,6 @@ const Discount = ({ height = "auto", width = "auto", value, onChange }) => {
   return (
     <div
       style={{
-        // background: "var(--p-color-text-info)",
         height: height,
         width: width,
       }}

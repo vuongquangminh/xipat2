@@ -1,6 +1,5 @@
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
-import { AppProvider, LegacyCard, Text } from "@shopify/polaris";
 import "@shopify/polaris/build/esm/styles.css";
 
 const Dashboard = () => {

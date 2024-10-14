@@ -62,7 +62,6 @@ const ProductModal = ({ active, setActive, errors, setErrors }) => {
       <Thumbnail source={URL.createObjectURL(image)} alt="Uploaded Image" />
       <div>
         <span style={{ color: "#6d7175" }}>{image.name}</span>{" "}
-        {/* Thay TextStyle bằng span */}
       </div>
     </div>
   ) : null;
