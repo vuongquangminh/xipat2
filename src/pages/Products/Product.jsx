@@ -1,18 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import request from "../../utils/request";
-import { DataTable, Button, Tag } from "@shopify/polaris";
-import { color } from "chart.js/helpers";
+import { DataTable, Button, TextField, Icon } from "@shopify/polaris";
 import "../../../src/index.css";
 import ModalProduct from "./ModalProduct";
 import ModalAddRule from "./ModalAddRule";
+import { SearchIcon } from "@shopify/polaris-icons";
 const Product = () => {
+  const [fullData, setFullData] = useState([]);
   const [rowTable, setRowTable] = useState([]);
-  const [fullRow, setFullRowData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [active, setActive] = useState(false);
   const [ruleModal, setRuleModal] = useState(false);
   const [errors, setErrors] = useState({});
   const [item, setItem] = useState({});
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+    const newRowTable = fullData?.filter((item) => {
+      return (
+        item?.title.toLowerCase().includes(value.toLowerCase()) ||
+        item?.status.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+
+    const cusNewRow = newRowTable?.map((x) => {
+      return [
+        <img alt={x.title} src={x.image} style={{ height: "50px" }} />,
+        x.title,
+        x.rules.length,
+        x.last_update,
+        <div
+          className={
+            x.status === "Active"
+              ? "bg-green-600 inline-block p-2 rounded-md"
+              : "bg-amber-300 inline-block p-2 rounded-md"
+          }
+        >
+          {x.status}
+        </div>,
+        <div>
+          <Button variant="primary" onClick={() => handleEdit(x)}>
+            + Add Rule
+          </Button>
+        </div>,
+      ];
+    });
+    setRowTable(cusNewRow);
+  };
+  console.log({ rowTable });
 
   const rowsPerPage = 5; // Mỗi trang hiển thị 5 dòng
 
@@ -46,7 +82,7 @@ const Product = () => {
               </div>,
             ];
           });
-        setFullRowData(res.data);
+        setFullData(res.data);
         setRowTable(data);
       } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -56,9 +92,13 @@ const Product = () => {
   }, []);
 
   // Tính toán các dòng hiển thị dựa trên trang hiện tại
-  const paginatedRows = rowTable.slice(
-    currentPage * rowsPerPage,
-    (currentPage + 1) * rowsPerPage
+  const paginatedRows = useMemo(
+    () =>
+      rowTable.slice(
+        currentPage * rowsPerPage,
+        (currentPage + 1) * rowsPerPage
+      ),
+    [rowTable, currentPage]
   );
 
   const handleNextPage = () => {
@@ -74,19 +114,29 @@ const Product = () => {
   };
 
   const handleEdit = (item) => {
-    console.log("Edit item with id:", item);
     setRuleModal(true);
     setItem(item);
-    // Thực hiện hành động chỉnh sửa
   };
 
   const handleToggle = () => setActive(!active);
-  console.log("aaa: ", item);
+  const handleToggleRule = () => {
+    setRuleModal(false);
+  };
   return (
     <>
       <div className="flex justify-end">
         <Button onClick={handleToggle}>+ Add Product</Button>
       </div>
+      <TextField
+        label="Tìm kiếm ( Product, Status)"
+        value={searchValue}
+        onChange={handleSearchChange}
+        placeholder="Nhập từ khóa tìm kiếm..."
+        prefix={<Icon source={SearchIcon} tone="base" />} // Icon tìm kiếm
+        clearButton // Hiển thị nút xoá input
+        onClearButtonClick={() => setSearchValue("")} // Xoá nội dung input
+        autoComplete="off"
+      />
       {rowTable.length > 0 ? (
         <>
           <h2 style={{ fontWeight: "bold", textAlign: "center" }}>
@@ -117,6 +167,15 @@ const Product = () => {
               textAlign: "center",
             }}
           >
+            {currentPage * rowsPerPage + 1}-
+            {currentPage * rowsPerPage + rowsPerPage}/ Tổng số {rowTable.length}
+          </div>
+          <div
+            style={{
+              marginTop: "20px",
+              textAlign: "center",
+            }}
+          >
             <Button onClick={handlePreviousPage} disabled={currentPage === 0}>
               Previous
             </Button>
@@ -137,7 +196,12 @@ const Product = () => {
         errors={errors}
         setErrors={setErrors}
       />
-      <ModalAddRule active={ruleModal} setActive={setRuleModal} item={item} />
+      <ModalAddRule
+        active={ruleModal}
+        setActive={setRuleModal}
+        item={item}
+        handleToggle={handleToggleRule}
+      />
     </>
   );
 };
