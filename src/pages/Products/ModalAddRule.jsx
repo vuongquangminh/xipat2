@@ -63,7 +63,7 @@ const ModalAddRule = ({ item, active, handleToggle }) => {
           </p>
         }
         primaryAction={{
-          content: "Submit",
+          content: "Save",
           onAction: handleSubmit,
         }}
         secondaryActions={[

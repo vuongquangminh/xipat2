@@ -73,7 +73,7 @@ const ProductModal = ({ active, setActive, errors, setErrors }) => {
         onClose={handleToggle}
         title="Add Product"
         primaryAction={{
-          content: "Submit",
+          content: "Save",
           onAction: handleSubmit,
         }}
         secondaryActions={[
